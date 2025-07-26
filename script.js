@@ -76,12 +76,13 @@ function renderPerson(key) {
 
         <p>Current Total: <span class="amount-display" id="amount-${key}">0</span></p>
 
-        <div class="quick-buttons">
-            ${[5, 10, 20, 30].map(val => `
-                <button onclick="adjustAmount('${key}', ${val})">+${val}</button>
-                <button onclick="adjustAmount('${key}', -${val})">-${val}</button>
-            `).join('')}
-        </div>
+       <div class="quick-buttons-row">
+        ${[-30, -20, -10, 10, 20, 30].map(val => `
+            <button onclick="adjustAmount('${key}', ${val})">
+                ${val > 0 ? '+' + val : val}
+            </button>
+        `).join('')}
+    </div>
 
         <div style="margin-top: 10px;">
             <input type="number" id="input-${key}" placeholder="Enter amount">
@@ -112,10 +113,12 @@ function updateAmount(key, operation) {
 
     const amountEl = document.getElementById(`amount-${key}`);
     amountEl.innerHTML = `
+    <div style="display: flex; align-items: center; flex-wrap: nowrap; gap: 6px; white-space: nowrap;">
         <span style="color:#999; font-size:14px;">Prev: ${previousAmount}</span>
-        <span style="margin: 0 8px;">→</span>
+        <span style="margin: 0 4px;">→</span>
         <span style="color:#27ae60; font-size:16px; font-weight:bold;">Now: ${people[key].amount}</span>
-    `;
+    </div>
+`;
 
     input.value = "";
 }
