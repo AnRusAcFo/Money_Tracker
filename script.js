@@ -175,7 +175,11 @@ function loadData() {
         return;
     }
 
+    Object.keys(people).forEach(key => delete people[key]);
+    document.getElementById("peopleList").innerHTML = "";
+
     Object.keys(saved).forEach(key => {
+        
         people[key] = saved[key];
         renderPerson(key);
         document.getElementById(`amount-${key}`).textContent = people[key].amount;
